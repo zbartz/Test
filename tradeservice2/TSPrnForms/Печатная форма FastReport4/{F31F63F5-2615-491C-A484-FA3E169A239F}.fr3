@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TfrxReport Version="4.4.45" DotMatrixReport="False" IniFile="\Software\Fast Reports" PreviewOptions.Buttons="4095" PreviewOptions.Zoom="1" PrintOptions.Printer="Default" PrintOptions.PrintOnSheet="0" ReportOptions.CreateDate="38292,5588075231" ReportOptions.Description.Text="" ReportOptions.LastChange="39652,5129678472" ScriptLanguage="PascalScript" ScriptText.Text="begin&#13;&#10;&#13;&#10;end." StoreInDFM="False" PropData="08446174617365747301010C2800000020446174615365743D226473744D61696E2220446174615365744E616D653D226473744D61696E2200010C3600000020446174615365743D22667244425F426173655461626C652220446174615365744E616D653D22667244425F426173655461626C65220000095661726961626C65730100055374796C650100">
+  <TfrxDataPage Name="Data" Height="1000" Left="0" Top="0" Width="1000">
+    <TfrxDOAQuery Name="dstMain" UserName="dstMain" CloseDataSource="True" FieldAliases.Text="" Session="DBM.OraSession" Active="False" Debug="False" SQL.Text="SELECT tmp.zvalue1&#13;&#10;FROM tmp_table2 tmp" PropData="05704C65667402340470546F700234095661726961626C65730100"/>
+  </TfrxDataPage>
+  <TfrxReportPage Name="Page1" PaperWidth="210" PaperHeight="297" PaperSize="9" LeftMargin="6" RightMargin="6" TopMargin="16" BottomMargin="10" Columns="10" ColumnWidth="72" ColumnPositions.Text="0&#13;&#10;20&#13;&#10;40&#13;&#10;60&#13;&#10;80&#13;&#10;100&#13;&#10;120&#13;&#10;140&#13;&#10;160&#13;&#10;180" HGuides.Text="" VGuides.Text="">
+    <TfrxMasterData Name="MasterData1" Height="43,46456693" Left="0" Top="19,77953" Width="272,12616" Columns="1" ColumnWidth="200" ColumnGap="20" DataSet="dstMain" DataSetName="dstMain" RowCount="0">
+      <TfrxMemoView Name="Memo1" Left="6" Top="0" Width="64" Height="36" Frame.Style="fsDash" Frame.Width="0,100000001490116" Text=""/>
+      <TfrxMemoView Name="Memo2" Left="10" Top="0" Width="56" Height="24" Font.Charset="1" Font.Color="0" Font.Height="-24" Font.Name="Times New Roman" Font.Style="1" HAlign="haCenter" ParentFont="False" Text="ССС"/>
+      <TfrxMemoView Name="Memo3" Left="6" Top="31,46456693" Width="64" Height="12" Font.Charset="1" Font.Color="0" Font.Height="-7" Font.Name="Times New Roman" Font.Style="0" HAlign="haCenter" ParentFont="False" Text="Минсвязи России"/>
+    </TfrxMasterData>
+  </TfrxReportPage>
+</TfrxReport>

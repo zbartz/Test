@@ -1,0 +1,19 @@
+select 1 from dual 
+ where FN_REQUIRED_INSES_PARAMS(:vorderid) > 0
+   and exists ( select 1 
+                from 
+                  op_values ov join
+                  o_good_item ogi on ogi.og_item_id = ov.og_item_id join
+                  g_unit gu on gu.g_unit_id = ogi.g_unit_id
+                where ov.order_id = :vorderid
+                  and ov.op_code in ('PDS2NUM', 'PDS3NUM', 'PDS5NUM') 
+                  and ov.opvalue is not null and
+                  (orders_proc.FN_IS_PDS(gu.good_code/*, 'Y'*/) = 'Y')
+                  and exists
+                  (select 1 from specgoods s where s.good_code = gu.good_code and s.st_code = 'INS_ES')
+                  and exists
+                  (select 1 from specgoods s where s.good_code = gu.good_code and s.st_code = 'INS_ES_VSK')
+              )
+and exists (select 1 from orders o where o.order_id=:vorderid and o.os_code<>'ZEXPIRED')
+
+

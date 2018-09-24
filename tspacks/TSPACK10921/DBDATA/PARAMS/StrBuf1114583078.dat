@@ -1,0 +1,16 @@
+select 1 
+  from op_values opv, o_good_item ogi, g_unit gu, good g, specgoods s,
+       werk w, w_type wt
+ where opv.op_code='MOUNTHTECH'
+   and opv.opvalue='Y'
+   and opv.order_id=ogi.order_id
+   and ogi.g_unit_id=gu.g_unit_id 
+   and gu.good_code=g.good_code
+   and g.good_code=s.good_code 
+   and s.st_code = 'HI_CAR'
+   and opv.order_id=:vorderid
+   and w.is_base = 'Y' 
+   and w.wtype_code = wt.wtype_code 
+   and wt.wbltype = 'CAR'
+   and rownum=1
+

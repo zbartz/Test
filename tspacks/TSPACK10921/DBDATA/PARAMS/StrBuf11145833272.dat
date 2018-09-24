@@ -1,0 +1,32 @@
+SELECT 1
+  FROM dual
+ WHERE EXISTS 
+       (SELECT 1
+          FROM o_good_item ogi
+          JOIN g_unit gu
+            ON gu.g_unit_id = ogi.g_unit_id
+          JOIN specgoods s
+            ON s.good_code = gu.good_code
+           AND s.st_code = 'HI_SERT2'
+          JOIN op_values op
+            ON op.og_item_id = ogi.og_item_id
+           AND op.op_code = 'PARAMFILLD'
+           AND op.opvalue = 'Да'
+         WHERE ogi.order_id = :vorderid
+        )
+AND NOT EXISTS 
+       (SELECT 1
+          FROM o_good_item ogi
+          JOIN g_unit gu
+            ON gu.g_unit_id = ogi.g_unit_id
+          JOIN specgoods s
+            ON s.good_code = gu.good_code
+           AND s.st_code = 'HI_MSERT2'
+          JOIN op_values op
+            ON op.og_item_id = ogi.og_item_id
+           AND op.op_code = 'PARAMFILLD'
+           AND op.opvalue = 'Да'
+         WHERE ogi.order_id = :vorderid
+        )
+
+

@@ -1,0 +1,23 @@
+select 1
+  from orders o, op_values opv, werk w, w_type wt
+ where o.order_id = :vorderid
+   and o.order_id = opv.order_id
+   and opv.op_code = 'CREDIT'
+   and opv.opvalue in ('нашвмюъ нокюрю','йпедхр аюмйю','йпедхр пй одя б ондюпнй',
+                       'йпедхр аюмйю я днярюбйни','йпедхр HC VIP')
+   and w.is_base = 'Y' and w.country_code = 'RU' 
+   and w.wtype_code = wt.wtype_code and wt.wbltype <> 'EIS'
+and not exists 
+   (select 1 from o_condition oc 
+    where oc.order_id = o.order_id 
+        and oc.arrangement_id = '{76F91179-A755-41E7-831E-9A196AF9D92E}'
+   )
+and exists
+   (select 1 from o_good_item ogi, g_unit g
+    where ogi.order_id = o.order_id
+          and ogi.g_unit_id = g.g_unit_id
+          and g.good_code = '74916952'
+          and o.ot_code = 'ZPDS'
+   )
+and 1=2
+

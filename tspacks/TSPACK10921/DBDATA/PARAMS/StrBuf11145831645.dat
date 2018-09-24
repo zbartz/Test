@@ -1,0 +1,15 @@
+select 1
+ from op_values opv
+ join orders o
+ on (opv.order_id = o.order_id)
+ where o.order_id = :vorderid
+ and opv.op_code = 'INS_TECH'
+ and o.os_code in ('ZORDR_OPEN','ZPDS_CRTD')
+ AND FN_REQUIRED_INSTECH_PARAMS(o.order_id,'',opv.og_item_id) > 0 
+ AND ORDERS_PROC.GET_INSURER_BY_NUM(opv.opvalue) = 'VSK'
+
+
+
+
+
+

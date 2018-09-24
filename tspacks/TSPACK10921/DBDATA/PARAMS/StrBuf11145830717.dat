@@ -1,0 +1,18 @@
+select distinct 1
+  from orders o, o_good_item ogi, g_unit gu, good g
+ where (1=1)
+      and o.order_id = /*33991*/ :vorderid
+      and o.os_code = 'ZBNAL_SHPD'
+      and ogi.order_id = o.order_id
+      and gu.g_unit_id = ogi.g_unit_id
+      and gu.is_base = 'Y'
+      and g.good_code = gu.good_code
+      and g.g_type_code = 'DIEN'
+      and ogi.ignore <> 'Y'
+      and not ( exists (select 1 from specgoods sp where sp.good_code = gu.good_code and sp.st_code = 'HITECH_SRV') or 
+           exists (select 1 from g_feature fg
+                 where  fg.good_code = gu.good_code
+                   and  fg.feature_code = 'COMG'
+                   and  fg.value is not null)
+         ) 
+

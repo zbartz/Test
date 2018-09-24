@@ -1,0 +1,12 @@
+select 1 
+  from op_values opv, o_good_item ogi, g_unit gu, good g, specgoods s
+ where opv.op_code='MOUNTHTECH'
+   and opv.opvalue='Y'
+   and opv.order_id=ogi.order_id
+   and ogi.g_unit_id=gu.g_unit_id 
+   and gu.good_code=g.good_code
+   and g.good_code=s.good_code 
+   and s.st_code = 'HI_PC_MOB'
+   and opv.order_id=:vorderid
+   and rownum=1
+

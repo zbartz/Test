@@ -1,0 +1,28 @@
+select 1 
+from orders o, o_good_item ogi, g_unit gu, good g, specgoods s, op_values opv
+where (1=1)
+and o.srcdobjcode = 'ESHOP'
+and not exists (/*Не должно быть связанной WEB-заявки*/
+select 1 from orders o2 where o2.chainnum = o.chainnum and o2.ot_code = 'WRQST'
+)
+and exists
+(/*Печать только для Интернет-магазина*/
+select 1
+from werk w, w_type wt
+where w.is_base = 'Y'
+    and w.wtype_code = wt.wtype_code
+    and upper(wt.wbltype) = 'EIS'
+)
+   and opv.op_code = 'MOUNTHTECH'
+   and opv.opvalue = 'Y'
+   and opv.order_id = ogi.order_id
+   and ogi.g_unit_id = gu.g_unit_id 
+   and gu.good_code = g.good_code
+   and g.good_code = s.good_code 
+   and s.st_code in ('HI_DK', 'HI_KBT') 
+   and ogi.order_id = o.order_id
+   and o.order_id = :vorderid /*3803473*/
+   and o.ot_code in ('ZORDR', 'ZPDS')
+   and rownum = 1
+
+

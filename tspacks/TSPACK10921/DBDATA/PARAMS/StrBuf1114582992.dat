@@ -1,0 +1,6 @@
+select 1 
+  from op_values o
+ where o.op_code = 'SK_ORDERID'
+   and o.order_id = :vorderid
+   and rownum = 1
+

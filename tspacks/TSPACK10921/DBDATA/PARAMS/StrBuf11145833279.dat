@@ -1,0 +1,24 @@
+select 1 
+  from werk w, o_good_item ogi, g_unit gu, good g, w_type wt
+ where w.is_base = 'Y' and w.country_code = 'RU'
+   and w.wtype_code = wt.wtype_code and wt.wbltype = 'EIS'
+   and ogi.order_id = :vorderid
+   and ogi.g_unit_id = gu.g_unit_id
+   and gu.is_base = 'Y'
+   and gu.good_code = g.good_code
+   and g.g_type_code <> 'DIEN'
+   and pk_print.ExistsUtil(:vorderid) = 0
+and 
+(select  nvl(max(case when (docsum>0) and amount is null then 1 else 0 end ),0)
+from 
+(select f.order_id ,f.docsum,sum(cp.amount)amount 
+from money_fict f
+          LEFT JOIN o_condition cp
+            ON cp.order_id = f.order_id
+--           AND cp.og_item_id = ogi.order_item_id
+           AND cp.sapcode = 'CMSS'
+		   AND cp.ARRANGEMENT_ID=PK_INTERNET.GET_GUID_ACTION('PAYED')
+where  f.order_id = :vorderid
+group by f.order_id, f.docsum
+)t)=0
+

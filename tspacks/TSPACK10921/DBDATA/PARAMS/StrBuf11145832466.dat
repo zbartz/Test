@@ -1,0 +1,14 @@
+select 1 from orders o
+join o_good_item ogi on ogi.order_id = o.order_id
+join g_unit gu on gu.g_unit_id = ogi.g_unit_id
+join specgoods sp on sp.good_code = gu.good_code
+where sp.st_code = 'COUPONUTIL' and o.order_id = :vorderid
+      and o.os_code <> 'DOC_STORN'
+      and (
+          select count(*) from werk w
+          join w_type wt on wt.wtype_code = w.wtype_code
+          where  w.is_base = 'Y' 
+                 and w.country_code = 'RU'
+                 and wt.wbltype = 'EIS'
+          )>0
+

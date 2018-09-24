@@ -1,0 +1,47 @@
+select 1 
+  from orders o, orders op,
+       op_values opv, o_good_item ogi, g_unit gu, good g, specgoods s
+ where opv.op_code = 'MOUNTHTECH'
+   and opv.opvalue = 'Y'
+   and opv.order_id = ogi.order_id
+   and ogi.g_unit_id = gu.g_unit_id 
+   and gu.good_code = g.good_code
+   and g.good_code = s.good_code 
+   and s.st_code = 'HI_KBT'  --,'HI_KBTCOND'
+   and opv.order_id = op.order_id
+   and o.order_id = :vorderid 
+   and o.ot_code = 'ZADDR' 
+   and op.ot_code in ('ZORDR','ZPDS')
+   and op.chainnum = o.chainnum
+   and exists ( select g2.good_code from o_good_item ogi2, g_unit gu2, good g2
+                 where ogi2.order_id = o.order_id
+                   and ogi2.g_unit_id = gu2.g_unit_id 
+                   and gu2.good_code = g2.good_code
+                   and g2.g_type_code <> 'DIEN' )
+   and rownum = 1
+   and 1=2
+union
+select 1 
+  from orders o, orders op,
+       op_values opv, o_good_item ogi, g_unit gu, good g, specgoods s
+ where opv.op_code = 'MOUNTHTECH'
+   and opv.opvalue = 'Y'
+   and opv.order_id = ogi.order_id
+   and ogi.g_unit_id = gu.g_unit_id 
+   and gu.good_code = g.good_code
+   and g.good_code = s.good_code 
+   and s.st_code = 'HI_KBT'
+   and opv.order_id = op.order_id
+   and o.order_id = :vorderid 
+   and o.ot_code = 'ZADDR' 
+   and op.ot_code in ('ZORDR','ZPDS')
+   and op.chainnum = o.chainnum
+   and not exists ( select g2.good_code from o_good_item ogi2, g_unit gu2, good g2
+                 where ogi2.order_id = o.order_id
+                   and ogi2.g_unit_id = gu2.g_unit_id 
+                   and gu2.good_code = g2.good_code
+                   and g2.g_type_code <> 'DIEN' )
+   and rownum = 1
+   and 1=2
+
+

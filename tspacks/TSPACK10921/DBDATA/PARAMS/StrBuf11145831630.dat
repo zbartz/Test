@@ -1,0 +1,26 @@
+select 1
+  from orders o, werk w, w_type wt
+ where o.order_id = :vorderid
+   and w.is_base = 'Y' 
+   and w.country_code = 'RU'
+   and w.wtype_code = wt.wtype_code 
+   and wt.wbltype = 'EIS'
+   and pk_print.ExistsUtil(:vorderid) > 0
+union all
+select 1
+  from orders o, op_values opv, werk w, w_type wt
+ where o.order_id = :vorderid
+   and o.order_id = opv.order_id
+   and opv.op_code = 'CREDIT'
+   and opv.opvalue in ('ÎÁÛ×ÍÀß ÎÏËÀÒÀ','ÊÐÅÄÈÒ ÁÀÍÊÀ','ÊÐÅÄÈÒ ÐÊ ÏÄÑ Â ÏÎÄÀÐÎÊ',
+                       'ÊÐÅÄÈÒ ÁÀÍÊÀ Ñ ÄÎÑÒÀÂÊÎÉ','ÊÐÅÄÈÒ HC VIP','ÊÐÅÄÈÒ ÁÐÑ 10-10-10', 'ÊÐÅÄÈÒ 0-0-0-12 ÕÁ')
+   and w.is_base = 'Y' 
+   and w.country_code = 'RU' 
+   and w.wtype_code = wt.wtype_code 
+   and wt.wbltype IN ('PVZ', 'PZVS')
+   and not exists 
+       (select 1 from o_condition oc 
+         where oc.order_id = o.order_id 
+            and oc.arrangement_id = '{76F91179-A755-41E7-831E-9A196AF9D92E}')
+   and pk_print.ExistsUtil(:vorderid) > 0
+

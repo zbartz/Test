@@ -1,0 +1,18 @@
+select 1 
+  from orders o, o_good_item ogi, g_unit gu, good g, specgoods s
+ where 1=1
+   and ogi.g_unit_id = gu.g_unit_id 
+   and gu.good_code = g.good_code
+   and g.good_code = s.good_code 
+   and s.st_code in ('HI_DK', 'HI_KBT','HI_UD') --,'HI_KBTCOND'
+   and ogi.order_id = o.order_id
+   and o.order_id = :vorderid
+   and o.ot_code in ('ZADDR', 'ZORDR', 'ZPDS')
+   and not exists (select * 
+               from orders op, scontract sc
+               where op.order_id = o.parent_order_id
+                 and op.ot_code in ('ZORDR', 'ZPDS')
+                 and sc.order_id = op.order_id)
+   and rownum = 1
+
+

@@ -1,0 +1,7 @@
+SELECT 1 
+  FROM orders o
+  JOIN orders o1 
+    ON o1.chainnum = o.chainnum AND o1.ot_code = 'WRQST'
+  JOIN OP_VALUES opv1 
+    ON opv1.ORDER_ID = o1.ORDER_ID AND opv1.OP_CODE = 'ONLINE_PAY' AND opv1.opvalue = 'Y'
+ WHERE o.order_id = :vorderid

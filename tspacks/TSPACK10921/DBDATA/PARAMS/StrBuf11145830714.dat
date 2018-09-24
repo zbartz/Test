@@ -1,0 +1,21 @@
+select 1
+  from orders o, orders op,
+       op_values opv, o_good_item ogi, g_unit gu, good g, specgoods s
+ where opv.op_code = 'MOUNTHTECH'
+   and opv.opvalue = 'Y'   
+   and opv.order_id = op.order_id
+   and op.ot_code in ('ZORDR','ZPDS')
+   and op.chainnum = o.chainnum
+   and ogi.g_unit_id = gu.g_unit_id 
+   and gu.good_code = g.good_code
+   and g.good_code = s.good_code
+   and s.st_code in ('HI_DK', 'HI_UD')
+   and o.order_id = :vorderid
+   and o.ot_code = 'ZADDR'
+   and ogi.order_id = o.order_id   
+   and exists (select * 
+               from o_good_item ogi2, scontract_good scg
+               where ogi2.order_id = op.order_id
+                 and scg.og_item_id = ogi2.og_item_id)
+   and rownum = 1
+

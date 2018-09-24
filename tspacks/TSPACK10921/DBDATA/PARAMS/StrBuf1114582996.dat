@@ -1,0 +1,25 @@
+select 1 
+  from orders o, /*orders op,*/
+       /*op_values opv,*/ o_good_item ogi, g_unit gu, good g, specgoods s
+ where 1=1
+/*   and opv.op_code = 'MOUNTHTECH'
+   and opv.opvalue = 'Y'
+*/
+--   and opv.order_id = ogi.order_id
+   and ogi.g_unit_id = gu.g_unit_id 
+   and gu.good_code = g.good_code
+   and g.good_code = s.good_code 
+   and s.st_code in ('HI_DK', 'HI_KBT','HI_UD') --,'HI_KBTCOND'
+--   and opv.order_id = o.order_id
+   and ogi.order_id = o.order_id
+   and o.order_id = :vorderid
+   and o.ot_code in ('ZADDR', 'ZORDR', 'ZPDS')
+/*   and op.chainnum = o.chainnum */   
+   and not exists (select * 
+                   from orders op, scontract sc
+                   where op.order_id = o.parent_order_id
+                     and op.ot_code in ('ZORDR', 'ZPDS')
+                     and sc.order_id = op.order_id)
+   and rownum = 1
+
+

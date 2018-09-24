@@ -1,0 +1,31 @@
+select 1 
+  from dual 
+ where FN_REQUIRED_PDS_PARAMS(:vorderid) > 0
+   and exists ( select 1 
+                from 
+                  op_values ov join
+                  o_good_item ogi on ogi.og_item_id = ov.og_item_id join
+                  g_unit gu on gu.g_unit_id = ogi.g_unit_id
+                where ov.order_id = /*32003*/ :vorderid
+                  and ov.op_code in ('PDS2NUM', 'PDS3NUM', 'PDS5NUM') 
+                  and ov.opvalue is not null and
+                  (orders_proc.FN_IS_PDS(gu.good_code/*, 'Y'*/) = 'Y')
+                  and not exists
+                  (select 1 from specgoods s where s.good_code = gu.good_code and s.st_code = 'INS_ES'))
+/*
+and exists
+(
+select w.werk_code 
+from werk w 
+where w.is_base = 'Y'
+    and w.werk_code in 
+    (
+'A013','A014','A018','A091','A303','A305','A359','A411','A450','A454','A686','A211','A247','A250','A256',
+'A273','A327','A368','A397','A542','A016','A228','A284','A309','A358','A417','A421','A520','A565','A627',
+'A682','A143','A241','A307','A363','A460','A556','A558','A567','A612','A614','A683','A163','A257','A365',
+'A403','A430','A463','A493','A548','A613','A671','A249','A319','A351','A400','A458','A524','A559'    
+    )
+) 
+с 1.08.2013 эта ПФ для всех магазинов*/
+
+

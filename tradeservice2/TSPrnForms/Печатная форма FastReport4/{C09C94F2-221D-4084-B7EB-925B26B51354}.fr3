@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TfrxReport Version="4.13.1" DotMatrixReport="False" IniFile="\Software\Fast Reports" PreviewOptions.Buttons="4095" PreviewOptions.Zoom="1" PrintOptions.Printer="Default" PrintOptions.PrintOnSheet="0" ReportOptions.CreateDate="41373,5310559144" ReportOptions.Description.Text="" ReportOptions.LastChange="41373,5310559144" ScriptLanguage="PascalScript" ScriptText.Text="&#13;&#10;begin&#13;&#10;&#13;&#10;end." StoreInDFM="False" PropData="08446174617365747301010C2C00000020446174615365743D22444F415175657279312220446174615365744E616D653D22444F41517565727931220000095661726961626C65730100055374796C650100">
+  <TfrxDataPage Name="Data" Height="1000" Left="0" Top="0" Width="1000">
+    <TfrxDOAQuery Name="DOAQuery1" UserName="DOAQuery1" CloseDataSource="True" FieldAliases.Text="DF_GUID=DF_GUID&#13;&#10;DF_PURPOSE=DF_PURPOSE&#13;&#10;DF_NAME=DF_NAME&#13;&#10;DF_VALUE=DF_VALUE&#13;&#10;DF_TYPE=DF_TYPE&#13;&#10;DF_NOTE=DF_NOTE" BCDToCurrency="False" Session="DBM.OraSession" Active="False" Debug="False" SQL.Text="select * from datafiles where DF_GUID = '{50BDA851-A935-4819-B630-8B7AC9FAB91D}'" PropData="05704C6566740384000470546F700238095661726961626C65730100"/>
+  </TfrxDataPage>
+  <TfrxReportPage Name="Page1" PaperWidth="60" PaperHeight="40" PaperSize="256" LeftMargin="0" RightMargin="0" TopMargin="0" BottomMargin="0" ColumnWidth="0" ColumnPositions.Text="" HGuides.Text="" VGuides.Text="">
+    <TfrxMemoView Name="Memo1" Left="45,35436" Top="11,33859" Width="117,16543" Height="52,91342" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="0" HAlign="haCenter" ParentFont="False" VAlign="vaCenter" Text="Привет! :)&#13;&#10;123&#13;&#10;Тест"/>
+    <TfrxBarCodeView Name="BarCode1" Left="188,9765" Top="15,11812" Width="22,6771678" Height="108,15" ShowHint="False" BarType="bcCodeEAN13" Rotation="90" ShowText="False" Text="12345678" WideBarRatio="2" Zoom="1,05" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0"/>
+    <TfrxPictureView Name="Picture1" Left="45,35436" Top="71,81107" Width="68,03154" Height="64,25201" ShowHint="False" DataField="DF_VALUE" DataSet="DOAQuery1" DataSetName="DOAQuery1" HightQuality="False" Transparent="False" TransparentColor="16777215"/>
+  </TfrxReportPage>
+</TfrxReport>

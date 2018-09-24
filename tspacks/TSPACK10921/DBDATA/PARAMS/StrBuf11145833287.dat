@@ -1,0 +1,16 @@
+SELECT MAX(1) AS cnt
+  FROM o_txns t
+ WHERE t.order_id = :vorderid
+   AND t.act_code = 'ACTIVATEWN'
+   AND (t.PAN like '90225%' /*OR t.PAN like '90216%'*/)
+   and NOT EXISTS (select 1 
+                   from SPECGOODS t
+                   join g_unit gu on gu.good_code = t.good_code
+                   join o_good_item ogi on ogi.g_unit_id = gu.g_unit_id
+                    and ogi.order_id = :vorderid
+                   where t.st_code = 'COUPONUTIL'
+                     and not exists (select * from op_values ov 
+                                     where ov.order_id = ogi.order_id
+                                       and ov.og_item_id = ogi.og_item_id
+                                       and ov.op_code = 'CUP_NUM'))
+

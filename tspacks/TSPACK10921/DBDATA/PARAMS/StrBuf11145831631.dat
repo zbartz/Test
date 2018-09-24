@@ -1,0 +1,11 @@
+select 1 
+  from werk w, o_good_item ogi, g_unit gu, good g, w_type wt
+ where w.is_base = 'Y' and w.country_code = 'RU'
+   and w.wtype_code = wt.wtype_code and wt.wbltype = 'EIS'
+   and ogi.order_id = :vorderid
+   and ogi.g_unit_id = gu.g_unit_id
+   and gu.is_base = 'Y'
+   and gu.good_code = g.good_code
+   and g.g_type_code <> 'DIEN'
+   and pk_print.ExistsUtil(:vorderid) > 0
+

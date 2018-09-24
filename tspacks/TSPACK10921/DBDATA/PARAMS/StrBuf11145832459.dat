@@ -1,0 +1,8 @@
+SELECT MAX(1) AS cnt
+from op_values t
+join o_txns o on o.order_id = t.order_id
+             and o.act_code = 'ACTIVATEWN'
+             and o.pan like '902299%'
+             AND t.op_code = 'SCR_PIN'
+WHERE t.order_id = :vorderid
+

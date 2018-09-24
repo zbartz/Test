@@ -1,0 +1,3 @@
+select 1 from dual
+where pk_print.ExistsUtil(:vorderid) > 0
+

@@ -1,0 +1,22 @@
+select 1
+  from orders o
+  join op_values opv on o.order_id = opv.order_id
+                    and opv.op_code = 'CREDIT'
+                    and opv.opvalue in ('нашвмюъ нокюрю','йпедхр аюмйю','йпедхр пй одя б ондюпнй',
+                       'йпедхр аюмйю я днярюбйни','йпедхр HC VIP')
+  join werk w on w.is_base = 'Y' 
+             and w.country_code = 'RU'
+  join w_type wt on w.wtype_code = wt.wtype_code 
+                and wt.wbltype NOT IN ('EIS', 'PVZ', 'PZVS')
+  left join orders z on z.chainnum = o.chainnum
+                    and z.ot_code = 'WRQST'               
+  left join op_values ov on ov.order_id = z.order_id
+                        and ov.op_code = 'ONLINE_PAY'                  
+ where o.order_id = :vorderid
+   and 
+   not exists 
+       (select 1 from o_condition oc 
+        where oc.order_id = o.order_id 
+            and oc.arrangement_id = '{76F91179-A755-41E7-831E-9A196AF9D92E}')
+   and pk_print.ExistsUtil(o.order_id) = 0
+   and ((nvl(ov.opvalue, 'N') <> 'Y') or (o.os_code = 'ZORDR_PAYD'))
